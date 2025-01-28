@@ -11,7 +11,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:8000/api/tasks",
+					"raw": "http://127.0.0.1:8000/api/tasks/?pole=status&znach=32",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -22,7 +22,18 @@
 					"port": "8000",
 					"path": [
 						"api",
-						"tasks"
+						"tasks",
+						""
+					],
+					"query": [
+						{
+							"key": "pole",
+							"value": "status"
+						},
+						{
+							"key": "znach",
+							"value": "32"
+						}
 					]
 				}
 			},

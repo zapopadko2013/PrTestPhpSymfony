@@ -36,9 +36,21 @@ implements LoggerAwareInterface
     }
 
     #[Route(path: "", name: "all", methods: ["GET"])]
-    public function all() : Response
+    public function all(Request $request) : Response
 	{
 		
+		////
+		$pole = $request->query->get('pole');
+		$znach =$request->query->get('znach');
+		
+		
+		
+		////
+		
+		if ($pole) {		
+        $tasks = $this->tasks->findBy([$pole => $znach]);		
+		}
+		else
 		$tasks = $this->tasks->findAll();
 		
 		
