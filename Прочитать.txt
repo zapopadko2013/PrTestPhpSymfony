@@ -4,14 +4,24 @@ symfony new t9
 3. Установить необходимые библиотеки для работы командами: 
 composer req maker
 composer req orm
+composer req logger
 4. Скопировать проект с гита в эту папку(проект).
 5. Файл подключения к базе данных .env исправить строку соединения.
-6. Миграция в гите создана, можно её не создавать.
+6. Миграция в гите создана, можно её не создавать( php bin/console make:migration ).
 7. Создать таблицу в базе данных выполнив миграцию командой:
 php bin/console doctrine:schema:create
 8. Запустить symfony  командой:
 symfony server:start
 9. Выполнить запросы в postman. Схема прилагается.
+10. Для работы с тестами установить необходимые библиотеки командами:
+composer require --dev symfony/test-pack
+composer require --dev zenstruck/foundry
+composer req symfony/serializer-pack
+11. В файл .env.test добавить строку соединения с базой данных.
+12. Запуск тестов(присоединяется к базе ..._test. Нужно создать эту базу и таблицу в ней(можно миграцией)) происходит командой:
+php bin/phpunit
+
+
 
 
 

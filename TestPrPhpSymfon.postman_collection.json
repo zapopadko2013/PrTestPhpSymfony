@@ -11,7 +11,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:8000/api/tasks/?pole=status&znach=32",
+					"raw": "http://127.0.0.1:8000/api/tasks/?pole=status&znach=32&limit=2&page=2",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -33,6 +33,14 @@
 						{
 							"key": "znach",
 							"value": "32"
+						},
+						{
+							"key": "limit",
+							"value": "2"
+						},
+						{
+							"key": "page",
+							"value": "2"
 						}
 					]
 				}
@@ -141,27 +149,16 @@
 				"method": "PUT",
 				"header": [],
 				"body": {
-					"mode": "urlencoded",
-					"urlencoded": [
-						{
-							"key": "name",
-							"value": "fg",
-							"type": "text"
-						},
-						{
-							"key": "description",
-							"value": "qw",
-							"type": "text"
-						},
-						{
-							"key": "status",
-							"value": "3",
-							"type": "text"
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"qwrr\",\r\n    \"description\": \"qwrr\",\r\n    \"status\": \"3\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
 						}
-					]
+					}
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8000/api/tasks/6",
+					"raw": "http://127.0.0.1:8000/api/tasks/1",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -173,7 +170,7 @@
 					"path": [
 						"api",
 						"tasks",
-						"6"
+						"1"
 					]
 				}
 			},

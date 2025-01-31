@@ -34,11 +34,11 @@ class Tasks
     #[Column(type: "string", length: 255)]
     private string $name;
 
-    #[Column(type: "string", length: 255)]
-    private string $desription;
+    #[Column(type: "string", length: 255, nullable: true)]
+    private ?string $desription;
 
-    #[Column(type: "string")]
-    private string $status;
+    #[Column(type: "string", nullable: true)]
+    private ?string $status;
 
     
 
@@ -71,7 +71,7 @@ class Tasks
     /**
      * @return string
      */
-    public function getDesription(): string
+    public function getDesription(): ?string
     {
         return $this->desription;
     }
@@ -79,7 +79,7 @@ class Tasks
     /**
      * @param string $desription
      */
-     public function setDescription(string $desription): self
+     public function setDescription(?string $desription): self
     {
         $this->desription = $desription;
 
@@ -89,7 +89,7 @@ class Tasks
     /**
      * @return Status
      */
-    public function getStatus(): string
+    public function getStatus(): ?string
     {
         return $this->status;
     }
@@ -98,7 +98,7 @@ class Tasks
      * @param Status $status
      * @return Post
      */
-    public function setStatus(string $status): self
+    public function setStatus(?string $status): self
     {
         $this->status = $status;
         return $this;

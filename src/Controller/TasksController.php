@@ -20,10 +20,11 @@ use Symfony\Component\Routing\Attribute\Route;
 
 #[Route(path: "/api/tasks", name: "tasks_")]
 class TasksController extends AbstractController 
-implements LoggerAwareInterface
+//implements LoggerAwareInterface
 {
 
-    private LoggerInterface $logger;
+    //private LoggerInterface $logger;
+    private  $logger;
 
     /**
      * @param TasksRepository $tasks
@@ -31,8 +32,11 @@ implements LoggerAwareInterface
      
      */
     public function __construct(private readonly TasksRepository         $tasks,
-                                private readonly EntityManagerInterface $objectManager)
+                                private readonly EntityManagerInterface $objectManager
+                                ,LoggerInterface $logger
+                                )
     {
+        $this->logger=$logger;
     }
 
     #[Route(path: "", name: "all", methods: ["GET"])]
@@ -46,12 +50,23 @@ implements LoggerAwareInterface
 		
 		
 		////
+        $page = $request->query->get('page',1);
+        $limit = $request->query->get('limit',50);
+        ////
+        ////
+
+        ////
+        ////
 		
-		if ($pole) {		
-        $tasks = $this->tasks->findBy([$pole => $znach]);		
-		}
+		if ($pole && $znach) {		
+        //$tasks = $this->tasks->findBy([$pole => $znach]);	
+            $tasks = $this->tasks->findBy([$pole => $znach],[],$limit,($limit*($page-1)));		
+
+
+        }
 		else
-		$tasks = $this->tasks->findAll();
+		//$tasks = $this->tasks->findAll();
+        $tasks = $this->tasks->findBy([],[],$limit,($limit*($page-1)));	
 		
 		
 		$data = [];
@@ -120,8 +135,9 @@ implements LoggerAwareInterface
         
    try{
 	   
-	   if (!$request || !$request->request->get('name') || !$request->request->get('description') ||!$request->request->get('status')){
-					$this->logger->debug("error:  Data no valid");
+	   //if (!$request || !$request->request->get('name') || !$request->request->get('description') ||!$request->request->get('status')){
+		if (!$request || !$request->request->get('name') ){
+           $this->logger->debug("error:  Data no valid");
 					throw new \Exception();
 				}
 	   
@@ -155,10 +171,18 @@ implements LoggerAwareInterface
 	#[Route('/{id}', name: 'tasks_update', methods:['put'] )]
     public function update(int $id,Request $request): JsonResponse
     {
+        
+        $p1=json_decode($request->getContent(),true);
+        
+
         try{
 	   
-	   if (!$request || !$request->request->get('name') || !$request->request->get('description') ||!$request->request->get('status')){
-					$this->logger->debug("error:  Data no valid");
+	   //if (!$request || !$request->request->get('name') || !$request->request->get('description') ||!$request->request->get('status')){
+       // if (!$request || !$request->request->get('name') ){
+        if (!$request || !$p1['name'] ){
+	
+           //$this->logger->debug("error:  Data no valid");
+           $this->logger->info("error:  Data no valid");
 					throw new \Exception();
 				}
 		
@@ -171,9 +195,14 @@ implements LoggerAwareInterface
                'error' =>'No task found for id=' . $id], 404);
         }
    
+        /*
         $task->setName($request->request->get('name'));
         $task->setDescription($request->request->get('description'));
 		$task->setStatus($request->request->get('status'));
+        */
+        $task->setName($p1['name']);
+        $task->setDescription($p1['description'] ?? null);
+		$task->setStatus($p1['status'] ?? null);
         $this->objectManager->flush();
    
         $data =  [
@@ -194,9 +223,11 @@ implements LoggerAwareInterface
 			}	
     }
 
+    /*
     public function setLogger(LoggerInterface $logger): void
     {
         $this->logger = $logger;
     }
+    */
 	
 }

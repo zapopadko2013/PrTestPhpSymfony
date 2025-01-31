@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20250128105931 extends AbstractMigration
+final class Version20250129043221 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -21,7 +21,7 @@ final class Version20250128105931 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('DROP SEQUENCE project_id_seq CASCADE');
-        $this->addSql('CREATE TABLE tasks (id SERIAL NOT NULL, name VARCHAR(255) NOT NULL, desription VARCHAR(255) NOT NULL, status VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE tasks (id SERIAL NOT NULL, name VARCHAR(255) NOT NULL, desription VARCHAR(255) DEFAULT NULL, status VARCHAR(255) DEFAULT NULL, PRIMARY KEY(id))');
         $this->addSql('DROP TABLE project');
     }
 
